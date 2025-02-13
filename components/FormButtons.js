@@ -1,7 +1,7 @@
 // components/FormButtons.js
 const FormButtons = ({ handleExtractEmails, handleReset, handleCopyMails, emailCount }) => (
     <div className="form-group col-xs-12 col-sm-12 col-md-12">
-      <div className="row"> {/* Added a row for better layout */}
+      <div className="row"> 
         <div className="col-md-3">
           <input
             type="button"
@@ -31,7 +31,7 @@ const FormButtons = ({ handleExtractEmails, handleReset, handleCopyMails, emailC
             Copy Mails
           </button>
         </div>
-      </div> {/* Close the row */}
+      </div> 
     </div>
   );
   

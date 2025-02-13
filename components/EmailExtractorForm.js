@@ -39,7 +39,7 @@ const EmailExtractorForm = () => {
               : /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
         }
 
-        const rawEmails = input.match(emailRegex) ||;
+        const rawEmails = input.match(emailRegex) || [];
         const uniqueEmails = [...new Set(rawEmails)];
 
         const filteredEmails = uniqueEmails.filter((email) => {
