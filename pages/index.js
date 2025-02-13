@@ -66,7 +66,7 @@ export default function HomePage() {
               <p>Enter any text data that contain email addresses</p>
             </div>
           </div>
-          <EmailExtractorForm /> {/* Use the component here */}
+          <EmailExtractorForm /> Use the component here
         </div>
         <div className="clearfix"></div>
         <div className="seprater_new"></div>
