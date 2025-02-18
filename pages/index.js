@@ -1,30 +1,59 @@
 import Head from 'next/head';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorBoundary from '../components/common/ErrorBoundary';
 
-// Dynamically import components with loading states
+// Dynamic imports with better loading states
 const Features = dynamic(() => import('../components/features/Features'), {
-  loading: () => <LoadingSpinner message="Loading features..." />
+  loading: () => (
+    <div className="py-5 fade-in">
+      <LoadingSpinner 
+        message="Loading features..." 
+        size="lg"
+        className="my-4"
+      />
+    </div>
+  )
 });
 
 const EmailForm = dynamic(() => import('../components/forms/EmailForm'), {
-  loading: () => <LoadingSpinner message="Initializing email extractor..." />
+  loading: () => (
+    <div className="card-body p-4 fade-in">
+      <LoadingSpinner 
+        message="Initializing email extractor..." 
+        variant="primary"
+      />
+    </div>
+  )
 });
 
 export default function Home() {
-  // Move useEffect inside the component
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    const loadBootstrap = async () => {
+    const loadApp = async () => {
       if (typeof window !== 'undefined') {
         await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+        setIsLoading(false);
       }
     };
-    loadBootstrap();
+    loadApp();
   }, []);
+
+  if (isLoading) {
+    return (
+      <div className="min-vh-100 d-flex align-items-center justify-content-center">
+        <LoadingSpinner 
+          size="lg" 
+          message="Loading Email Address Extractor..." 
+          variant="primary"
+        />
+      </div>
+    );
+  }
 
   return (
     <>

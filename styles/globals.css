@@ -1001,3 +1001,105 @@ main {
     border: 1px solid currentColor;
   }
 }
+
+/* Loading Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Loading Spinner Styles */
+.loading-wrapper {
+  min-height: 200px;
+  backdrop-filter: blur(5px);
+  border-radius: 0.5rem;
+}
+
+.spinner-border-lg {
+  width: 3rem;
+  height: 3rem;
+}
+
+.loading-message {
+  font-size: 0.95rem;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .loading-message {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+  
+  .loading-wrapper {
+    background: rgba(33, 37, 41, 0.03);
+  }
+  
+  * {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+}
+
+/* High Contrast Mode */
+@media (forced-colors: active) {
+  .spinner-border {
+    border-color: CanvasText;
+    border-right-color: transparent;
+    -forced-color-adjust: none;
+  }
+  
+  .loading-wrapper {
+    border: 1px solid CanvasText;
+  }
+}
+
+/* Prevent duplicate animations */
+@keyframes fadeIn {
+  from { 
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Improve loading spinner contrast */
+.spinner-border {
+  border-width: 0.25em;
+}
+
+/* Add focus visible styles */
+:focus-visible {
+  outline: 2px solid var(--bs-primary);
+  outline-offset: 2px;
+}
+
+/* Improve loading states */
+.loading-wrapper {
+  min-height: 200px;
+  backdrop-filter: blur(5px);
+  border-radius: 0.5rem;
+}
+
+/* Better dark mode transitions */
+@media (prefers-color-scheme: dark) {
+  * {
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+  }
+}
+
+/* Improve high contrast support */
+@media (forced-colors: active) {
+  .spinner-border {
+    -forced-color-adjust: none;
+  }
+  
+  .loading-wrapper {
+    border: 1px solid CanvasText;
+  }
+}
