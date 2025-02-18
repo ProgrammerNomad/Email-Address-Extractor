@@ -32,11 +32,77 @@ export default function EmailForm() {
   };
 
   const handleExtract = () => {
-    // Your email extraction logic here
-    // After extraction, update formData.output and formData.count
+    const text = formData.input;
+    if (!text) {
+      setFormData(prev => ({ ...prev, output: '', count: '' }));
+      return;
+    }
+
+    // Email regex pattern
+    const emailPattern = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+    
+    // Extract emails
+    let matches = text.match(emailPattern) || [];
+
+    // Remove duplicates
+    matches = [...new Set(matches)];
+
+    // Apply filters
+    if (formData.RemoveNumeric) {
+      matches = matches.filter(email => !/\d/.test(email.split('@')[1]));
+    }
+
+    if (formData.UseKeyword && formData.RemoveKeywords) {
+      const keywords = formData.RemoveKeywords.toLowerCase().split(',');
+      matches = matches.filter(email => 
+        !keywords.some(keyword => email.toLowerCase().includes(keyword.trim()))
+      );
+    }
+
+    if (formData.string) {
+      const searchString = formData.string.toLowerCase();
+      matches = formData.filter_type === '1' 
+        ? matches.filter(email => email.toLowerCase().includes(searchString))
+        : matches.filter(email => !email.toLowerCase().includes(searchString));
+    }
+
+    // Sort if needed
+    if (formData.sort) {
+      matches.sort();
+    }
+
+    // Convert to lowercase if needed
+    if (formData.lowcase) {
+      matches = matches.map(email => email.toLowerCase());
+    }
+
+    // Group if specified
+    let finalOutput;
+    if (formData.groupby && !isNaN(formData.groupby)) {
+      const size = parseInt(formData.groupby);
+      const groups = matches.reduce((acc, email, i) => {
+        if (i % size === 0) acc.push([]);
+        acc[Math.floor(i / size)].push(email);
+        return acc;
+      }, []);
+      finalOutput = groups.map(group => group.join('\n')).join('\n');
+    } else {
+      // Use selected separator or default to new line
+      const separator = formData.sep === 'other' ? formData.othersep : 
+                       formData.sep === 'new' ? '\n' : 
+                       formData.sep;
+      finalOutput = matches.join(separator);
+    }
+
+    setFormData(prev => ({
+      ...prev,
+      output: finalOutput,
+      count: matches.length.toString()
+    }));
   };
 
-  const handleReset = () => {
+  const handleReset = (e) => {
+    e.preventDefault(); // Prevent form submission
     setFormData(prev => ({
       ...prev,
       input: '',
