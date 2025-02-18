@@ -1,5 +1,6 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import debounce from 'lodash/debounce';
+import { chunk } from 'lodash';
 import InputOutput from './InputOutput';
 import OutputOptions from './OutputOptions';
 import FilterOptions from './FilterOptions';
@@ -50,39 +51,43 @@ export default function EmailForm() {
 
   const [copyMessage, setCopyMessage] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [error, setError] = useState('');
+  const abortController = useRef(null);
 
-  // Process emails in chunks to prevent UI freezing
-  const processEmailsInChunks = (text, chunkSize = 1000) => {
-    return new Promise((resolve) => {
-      const emailPattern = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
-      const chunks = text.match(new RegExp(`.{1,${chunkSize}}`, 'g')) || [];
-      const allEmails = new Set();
-
-      let currentChunk = 0;
-
-      const processChunk = () => {
-        if (currentChunk >= chunks.length) {
-          resolve(Array.from(allEmails));
-          return;
-        }
-
-        const chunk = chunks[currentChunk];
-        const matches = chunk.match(emailPattern) || [];
-        matches.forEach(email => allEmails.add(email));
-
-        currentChunk++;
-        setTimeout(processChunk, 0); // Allow UI to update between chunks
-      };
-
-      processChunk();
-    });
+  // Update the processEmailsInChunks function
+  const processEmailsInChunks = async (text) => {
+    const chunkSize = 100000; // Increased chunk size for better performance
+    const totalLength = text.length;
+    const emailSet = new Set();
+    const emailPattern = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+  
+    for (let i = 0; i < totalLength; i += chunkSize) {
+      if (abortController.current?.signal.aborted) {
+        throw new Error('Processing cancelled');
+      }
+  
+      const chunk = text.slice(i, i + chunkSize);
+      const matches = chunk.match(emailPattern) || [];
+      matches.forEach(email => emailSet.add(email));
+  
+      // Update progress
+      setProgress(Math.round((i + chunkSize) / totalLength * 100));
+  
+      // Allow UI to update and garbage collection
+      await new Promise(resolve => setTimeout(resolve, 0));
+    }
+  
+    return Array.from(emailSet);
   };
 
   const handleExtract = async () => {
     try {
       setIsProcessing(true);
-      setError('');
+      setProgress(0);
+      
+      // Create new abort controller
+      abortController.current = new AbortController();
 
       const text = formData.input;
       if (!text) {
@@ -90,7 +95,6 @@ export default function EmailForm() {
         return;
       }
 
-      // Process emails in chunks
       const emails = await processEmailsInChunks(text);
 
       // Apply filters
@@ -130,9 +134,19 @@ export default function EmailForm() {
         count: filteredEmails.length.toString()
       }));
     } catch (error) {
-      setError('Error processing emails: ' + error.message);
+      if (error.message !== 'Processing cancelled') {
+        setError('Error processing emails: ' + error.message);
+      }
     } finally {
       setIsProcessing(false);
+      setProgress(0);
+      abortController.current = null;
+    }
+  };
+
+  const handleCancel = () => {
+    if (abortController.current) {
+      abortController.current.abort();
     }
   };
 
@@ -148,11 +162,7 @@ export default function EmailForm() {
     const { name, value, type, checked } = e.target;
     const finalValue = type === 'checkbox' ? checked : value;
     
-    if (name === 'input' && value.length > 1000000) {
-      setError('Input text is too large. Please reduce the size.');
-      return;
-    }
-
+    // Remove size limit check and directly update state
     debouncedHandleInputChange(name, finalValue);
   };
 
@@ -303,11 +313,32 @@ export default function EmailForm() {
         </div>
       )}
       {isProcessing && (
-        <div className="alert alert-info" role="alert">
-          <div className="spinner-border spinner-border-sm me-2" role="status">
-            <span className="visually-hidden">Processing...</span>
+        <div className="alert alert-info alert-dismissible fade show" role="alert">
+          <div className="d-flex align-items-center">
+            <div className="spinner-border spinner-border-sm me-2" role="status">
+              <span className="visually-hidden">Processing...</span>
+            </div>
+            <div className="flex-grow-1">
+              Processing large text... {progress}%
+            </div>
+            <button 
+              type="button" 
+              className="btn btn-sm btn-outline-info ms-2"
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
           </div>
-          Processing large text... Please wait
+          <div className="progress mt-2" style={{ height: '3px' }}>
+            <div 
+              className="progress-bar" 
+              role="progressbar" 
+              style={{ width: `${progress}%` }}
+              aria-valuenow={progress} 
+              aria-valuemin="0" 
+              aria-valuemax="100"
+            ></div>
+          </div>
         </div>
       )}
       <InputOutput 
