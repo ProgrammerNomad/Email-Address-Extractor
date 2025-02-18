@@ -64,49 +64,51 @@ export default function Home() {
             </section>
 
             {/* Quick Tips Section */}
-            <section className="py-4 mb-5">
+            <section className="quick-tips py-4 mb-5">
               <div className="row g-4">
                 <div className="col-md-4">
-                  <div className="d-flex align-items-center">
-                    <div className="tip-icon">
-                      <i className="fas fa-lightbulb text-warning fs-4"></i>
-                    </div>
-                    <div className="ms-3">
-                      <div className="d-flex align-items-center">
-                        <h5 className="mb-0">Pro Tip:</h5>
-                        <span className="text-muted small ms-2">
+                  <div className="tip-card h-100 p-3 rounded">
+                    <div className="d-flex">
+                      <div className="tip-icon rounded-circle">
+                        <i className="fas fa-lightbulb text-warning"></i>
+                      </div>
+                      <div className="tip-content ms-3">
+                        <h5 className="tip-title mb-2">Pro Tip</h5>
+                        <p className="tip-text mb-0">
                           Sort emails alphabetically for better organization
-                        </span>
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div className="col-md-4">
-                  <div className="d-flex align-items-center">
-                    <div className="tip-icon">
-                      <i className="fas fa-filter text-primary fs-4"></i>
-                    </div>
-                    <div className="ms-3">
-                      <div className="d-flex align-items-center">
-                        <h5 className="mb-0">Quick Filter:</h5>
-                        <span className="text-muted small ms-2">
+                  <div className="tip-card h-100 p-3 rounded">
+                    <div className="d-flex">
+                      <div className="tip-icon rounded-circle">
+                        <i className="fas fa-filter text-primary"></i>
+                      </div>
+                      <div className="tip-content ms-3">
+                        <h5 className="tip-title mb-2">Quick Filter</h5>
+                        <p className="tip-text mb-0">
                           Remove unwanted domains instantly
-                        </span>
+                        </p>
                       </div>
                     </div>
                   </div>
                 </div>
+
                 <div className="col-md-4">
-                  <div className="d-flex align-items-center">
-                    <div className="tip-icon">
-                      <i className="fas fa-file-export text-success fs-4"></i>
-                    </div>
-                    <div className="ms-3">
-                      <div className="d-flex align-items-center">
-                        <h5 className="mb-0">Export:</h5>
-                        <span className="text-muted small ms-2">
-                          Save as TXT, CSV, or JSON
-                        </span>
+                  <div className="tip-card h-100 p-3 rounded">
+                    <div className="d-flex">
+                      <div className="tip-icon rounded-circle">
+                        <i className="fas fa-file-export text-success"></i>
+                      </div>
+                      <div className="tip-content ms-3">
+                        <h5 className="tip-title mb-2">Export Options</h5>
+                        <p className="tip-text mb-0">
+                          Save your results as TXT, CSV, or JSON
+                        </p>
                       </div>
                     </div>
                   </div>

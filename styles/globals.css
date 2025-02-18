@@ -863,3 +863,73 @@ main {
   opacity: 0.65;
   cursor: not-allowed;
 }
+
+/* Quick Tips Styling */
+.quick-tips .tip-card {
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.quick-tips .tip-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.quick-tips .tip-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quick-tips .tip-icon i {
+  font-size: 1.25rem;
+}
+
+.quick-tips .tip-title {
+  color: var(--bs-gray-800);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.quick-tips .tip-text {
+  color: var(--bs-gray-600);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .quick-tips .tip-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .quick-tips .tip-icon {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .quick-tips .tip-title {
+    color: var(--bs-gray-200);
+  }
+
+  .quick-tips .tip-text {
+    color: var(--bs-gray-400);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .quick-tips .tip-card {
+    padding: 1rem;
+  }
+
+  .quick-tips .tip-icon {
+    width: 40px;
+    height: 40px;
+  }
+}

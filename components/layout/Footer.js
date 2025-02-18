@@ -24,18 +24,18 @@ export default function Footer() {
               </li>
               <li className="mb-2">
                 <a 
-                  href="https://github.com/srapsware/email-address-extractor/wiki"
+                  href="https://github.com/ProgrammerNomad/Email-Address-Extractor/wiki"
                   className="text-muted text-decoration-none"
                 >
-                  About
+                  Documentation
                 </a>
               </li>
               <li className="mb-2">
                 <a 
-                  href="https://github.com/srapsware/email-address-extractor/issues/new"
+                  href="https://github.com/ProgrammerNomad/Email-Address-Extractor/issues"
                   className="text-muted text-decoration-none"
                 >
-                  Contact Support
+                  Report Issues
                 </a>
               </li>
             </ul>

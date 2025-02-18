@@ -30,7 +30,11 @@ This is a Next.js application for extracting email addresses from any given text
 
 ## Contributing
 
-Contributions are welcome! If you find any bugs or have suggestions for improvements, please open an issue or submit a pull request.
+Please read [CONTRIBUTING.md](https://github.com/ProgrammerNomad/Email-Address-Extractor/blob/main/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+
+## Issues
+
+If you find any bugs or have feature requests, please create an issue at [https://github.com/ProgrammerNomad/Email-Address-Extractor/issues](https://github.com/ProgrammerNomad/Email-Address-Extractor/issues)
 
 ## License
 

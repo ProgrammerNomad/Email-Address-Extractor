@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-white shadow-sm fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <div className="container">
         <Link href="/" className="navbar-brand">
           <Image 
@@ -46,6 +46,16 @@ export default function Navbar() {
               </a>
             </li>
           </ul>
+        </div>
+        <div className="navbar-nav ms-auto">
+          <a 
+            className="nav-link" 
+            href="https://github.com/ProgrammerNomad/Email-Address-Extractor"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <i className="fab fa-github"></i> GitHub
+          </a>
         </div>
       </div>
     </nav>
