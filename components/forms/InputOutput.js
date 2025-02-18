@@ -1,4 +1,4 @@
-export default function InputOutput({ formData, handleInputChange, handleExtract, handleReset, handleCopy, copyMessage }) {
+export default function InputOutput({ formData, handleInputChange, handleExtract, handleReset, handleCopy, handleExport, copyMessage }) {
   return (
     <div className="form-group">
       <div className="textarea-container">
@@ -47,7 +47,7 @@ export default function InputOutput({ formData, handleInputChange, handleExtract
                 readOnly 
               />
             </div>
-            <div className="d-flex flex-column justify-content-end">
+            <div className="d-flex flex-column justify-content-end gap-2">
               <button 
                 type="button" 
                 className="btn btn-success"
@@ -55,6 +55,42 @@ export default function InputOutput({ formData, handleInputChange, handleExtract
               >
                 Copy Mails
               </button>
+              <div className="dropdown">
+                <button 
+                  className="btn btn-primary dropdown-toggle" 
+                  type="button" 
+                  data-bs-toggle="dropdown" 
+                  aria-expanded="false"
+                >
+                  Export As
+                </button>
+                <ul className="dropdown-menu">
+                  <li>
+                    <button 
+                      className="dropdown-item" 
+                      onClick={() => handleExport('txt')}
+                    >
+                      Text File (.txt)
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      className="dropdown-item" 
+                      onClick={() => handleExport('csv')}
+                    >
+                      CSV File (.csv)
+                    </button>
+                  </li>
+                  <li>
+                    <button 
+                      className="dropdown-item" 
+                      onClick={() => handleExport('json')}
+                    >
+                      JSON File (.json)
+                    </button>
+                  </li>
+                </ul>
+              </div>
               {copyMessage && (
                 <small className="text-success mt-1">{copyMessage}</small>
               )}

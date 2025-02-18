@@ -217,6 +217,11 @@ main {
   border: 1px solid rgba(0,0,0,.125);
   border-radius: 0.375rem;
   margin-bottom: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
 }
 
 .card-header {
@@ -234,6 +239,15 @@ main {
   height: 1em;
   margin-top: 0.25em;
   margin-right: 0.5em;
+}
+
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.badge i {
+  opacity: 0.8;
 }
 
 /* Custom Bootstrap 5 overrides */
@@ -303,6 +317,18 @@ main {
   .btn {
     border-color: transparent;
   }
+  
+  .card {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+  
+  .badge {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
 }
 
 /* Feature section styles */
@@ -364,6 +390,14 @@ main {
     margin: 15px auto;
     float: none;
   }
+  
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .badge {
+    font-size: 0.8rem;
+  }
 }
 
 /* Footer styles */
@@ -400,5 +434,60 @@ main {
   
   .footer .text-muted {
     color: #9ca3af !important;
+  }
+}
+
+/* Enhanced UI styles */
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+}
+
+.badge {
+  font-weight: 500;
+  letter-spacing: 0.3px;
+}
+
+.badge i {
+  opacity: 0.8;
+}
+
+/* Typography improvements */
+.display-4 {
+  font-size: calc(1.475rem + 2.7vw);
+  letter-spacing: -0.02em;
+}
+
+.lead {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .card {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+  }
+  
+  .badge {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .display-4 {
+    font-size: 2rem;
+  }
+  
+  .badge {
+    font-size: 0.8rem;
   }
 }
