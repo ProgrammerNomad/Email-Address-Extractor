@@ -1,12 +1,20 @@
+/* Root variables */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --bs-body-bg: #f8f9fa;
+  --bs-primary: #0d6efd;
+  --bs-secondary: #6c757d;
+  --section-bg-light: #f8f9fa;
+  --section-bg-dark: #e9ecef;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --section-bg-light: #1a1a1a;
+    --section-bg-dark: #242424;
   }
 }
 
@@ -38,5 +46,359 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+.payment_image {
+  font-size: 200px;
+  color: #777;
+  text-align: center;
+  display: block;
+  margin: 20px auto;
+}
+
+.section-heading-spacer {
+  float: left;
+  width: 200px;
+  border-top: 3px solid #e7e7e7;
+  margin: 15px 0;
+}
+
+.start_main {
+  padding: 40px 0;
+}
+
+.example {
+  margin-bottom: 40px;
+}
+
+/* Bootstrap 5 overrides and custom styles */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.checkbox {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 12px;
+}
+
+.checkbox input[type="checkbox"] {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Spacing utilities */
+.py-5 {
+  padding-block: 3rem;
+}
+
+.mb-4 {
+  margin-bottom: 1.5rem;
+}
+
+.mb-3 {
+  margin-bottom: 1rem;
+}
+
+.mb-5 {
+  margin-bottom: 3rem;
+}
+
+/* Add other custom styles here */
+
+/* Layout styles */
+main {
+  padding-top: 76px;
+}
+
+/* Feature section styles */
+.feature-icon {
+  font-size: 4rem;
+  color: var(--bs-secondary);
+}
+
+.section-divider {
+  width: 100%;
+  max-width: 200px;
+  height: 3px;
+  background-color: #dee2e6;
+  margin: 2rem 0;
+}
+
+/* Form styles */
+.form-control,
+.form-select {
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  padding: 0.5rem 0.75rem;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+.checkbox-wrapper {
+  position: relative;
+  padding-left: 2rem;
+}
+
+.checkbox-wrapper .form-check-input {
+  position: absolute;
+  left: 0;
+  top: 0.25rem;
+}
+
+/* Textarea container styles */
+.textarea-container {
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.textarea-wrapper {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.textarea-container textarea {
+  width: 100%;
+  min-height: 300px;
+  padding: 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.375rem;
+  resize: vertical;
+}
+
+.textarea-container textarea:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+  outline: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .textarea-container {
+    flex-direction: column;
+  }
+  
+  .textarea-wrapper {
+    margin-bottom: 1.5rem;
+  }
+  
+  .payment_image {
+    font-size: 150px;
+  }
+  
+  .section-heading-spacer {
+    width: 100%;
+  }
+  
+  [class*="col-"] {
+    margin-bottom: 1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .feature-icon {
+    font-size: 3rem;
+  }
+}
+
+/* Add these styles to your existing CSS */
+.card {
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: 0.375rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-header {
+  background-color: rgba(0,0,0,.03);
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.form-check-input {
+  width: 1em;
+  height: 1em;
+  margin-top: 0.25em;
+  margin-right: 0.5em;
+}
+
+/* Custom Bootstrap 5 overrides */
+.form-select:focus,
+.form-control:focus {
+  border-color: #86b7fe;
+  box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+}
+
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+.g-3 {
+  --bs-gutter-y: 1rem;
+  --bs-gutter-x: 1rem;
+}
+
+/* Section styles */
+.content-section-a,
+.content-section-c,
+.content-section-e {
+  background-color: var(--section-bg-light);
+  padding: 50px 0;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.content-section-b,
+.content-section-d,
+.content-section-f {
+  background-color: var(--section-bg-dark);
+  padding: 50px 0;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+/* Helper classes */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .card,
+  .form-control,
+  .form-select {
+    background-color: var(--background);
+    border-color: #404040;
+    color: var(--foreground);
+  }
+  
+  .card-header {
+    background-color: rgba(255,255,255,.05);
+    border-bottom-color: #404040;
+  }
+  
+  .btn {
+    border-color: transparent;
+  }
+}
+
+/* Feature section styles */
+.features-section {
+  background-color: var(--bs-body-bg);
+}
+
+.content-section-a,
+.content-section-c,
+.content-section-e,
+.content-section-g {
+  background-color: var(--section-bg-light);
+  padding: 5rem 0;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.content-section-b,
+.content-section-d,
+.content-section-f,
+.content-section-h {
+  background-color: var(--section-bg-dark);
+  padding: 5rem 0;
+  border-top: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7;
+}
+
+.feature-content {
+  padding: 2rem;
+}
+
+.feature-icon {
+  padding: 2rem;
+  transition: transform 0.3s ease;
+}
+
+.feature-icon:hover {
+  transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+  .content-section-a,
+  .content-section-b,
+  .content-section-c,
+  .content-section-d,
+  .content-section-e,
+  .content-section-f,
+  .content-section-g,
+  .content-section-h {
+    padding: 3rem 0;
+  }
+  
+  .feature-content {
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .section-heading-spacer {
+    margin: 15px auto;
+    float: none;
+  }
+}
+
+/* Footer styles */
+.footer {
+  background-color: var(--bs-body-bg);
+}
+
+.footer a:hover {
+  color: var(--bs-primary) !important;
+  text-decoration: underline !important;
+}
+
+.footer .fa-heart {
+  animation: heartBeat 1.5s infinite;
+}
+
+@keyframes heartBeat {
+  0% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.3); }
+  70% { transform: scale(1); }
+}
+
+/* Dark mode support for footer */
+@media (prefers-color-scheme: dark) {
+  .footer {
+    background-color: var(--background);
+  }
+  
+  .footer h5 {
+    color: var(--foreground) !important;
+  }
+  
+  .footer .text-muted {
+    color: #9ca3af !important;
   }
 }
