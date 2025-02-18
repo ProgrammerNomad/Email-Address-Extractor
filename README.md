@@ -1,28 +1,40 @@
 # Email Address Extractor 📧
 
-A powerful Next.js application that extracts email addresses from any text with advanced filtering and formatting options.
+A powerful Next.js application that extracts email addresses from any text with advanced filtering and formatting options. Perfect for data mining, contact list building, and email validation.
+
+[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+[![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
+[![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)](https://getbootstrap.com/)
 
 ## ✨ Features
 
-- **Extract & Filter**
-  - Extract email addresses from any text
-  - Remove duplicate emails automatically
-  - Filter by domains or specific strings
-  - Remove emails containing specific keywords
-  - Sort emails alphabetically
+### 📥 Extract & Filter
+- Extract email addresses from any text instantly
+- Remove duplicate emails automatically
+- Advanced domain filtering system
+- Smart keyword-based filtering
+- Alphabetical sorting with custom options
 
-- **Format & Export**
-  - Customize separators (comma, pipe, colon, newline)
-  - Group emails by specified number
-  - Export as TXT, CSV, or JSON
-  - Copy all emails with one click
+### 📤 Format & Export
+- Multiple separator options
+  - Comma (CSV format)
+  - Pipe delimiter
+  - Custom separators
+  - New line
+- Group emails by custom count
+- Export options:
+  - Text file (.txt)
+  - CSV format (.csv)
+  - JSON structure (.json)
+- One-click copy to clipboard
 
-- **Advanced Options**
-  - Extract web URLs instead of emails
-  - Remove numeric domains
-  - Convert to lowercase
-  - Domain statistics
-  - Keyword-based filtering
+### 🛠️ Advanced Options
+- URL extraction mode
+- Numeric domain filtering
+- Case conversion tools
+- Domain frequency analysis
+- Custom keyword blacklist
+- Batch processing support
 
 ## 🚀 Quick Start
 
@@ -40,43 +52,62 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## 🛠️ Technologies
-
-- **Frontend Framework**: Next.js 14
-- **UI Library**: React 18
-- **Styling**: Bootstrap 5
-- **Icons**: Font Awesome
-- **Performance**: Lodash
-- **Code Quality**: ESLint & Prettier
+Visit [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## 💻 Development
 
 ```bash
-# Run tests
-npm test
+# Run tests with coverage
+npm test -- --coverage
 
-# Format code
+# Format code with Prettier
 npm run format
 
-# Lint code
+# Lint code with ESLint
 npm run lint
 
 # Build for production
 npm run build
+
+# Start production server
+npm start
 ```
+
+## 🔧 Technologies
+
+- **Core**
+  - Next.js 14 (React Framework)
+  - React 18 (UI Library)
+  - Node.js ≥18.0.0
+
+- **Styling**
+  - Bootstrap 5.3
+  - Font Awesome Icons
+  - Custom SCSS/CSS
+
+- **Performance**
+  - Lodash (Utility Functions)
+  - Optimized Chunk Processing
+
+- **Quality**
+  - ESLint
+  - Prettier
+  - Jest Testing
+  - Husky Git Hooks
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on:
+We welcome contributions! See our [Contributing Guide](CONTRIBUTING.md) for:
 - Code of Conduct
-- Pull Request Process
-- Development Guidelines
+- Development Setup
+- Pull Request Guidelines
+- Testing Requirements
 
-## 🐛 Issues
+## 🐛 Issues & Support
 
-Found a bug or have a feature request? [Create an issue](https://github.com/ProgrammerNomad/Email-Address-Extractor/issues)
+- Found a bug? [Create an issue](https://github.com/ProgrammerNomad/Email-Address-Extractor/issues)
+- Have questions? [Discussions](https://github.com/ProgrammerNomad/Email-Address-Extractor/discussions)
+- Need help? [Wiki](https://github.com/ProgrammerNomad/Email-Address-Extractor/wiki)
 
 ## 📝 License
 
@@ -86,9 +117,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Shiv Singh**
 - GitHub: [@ProgrammerNomad](https://github.com/ProgrammerNomad)
+- Website: [https://srapsware.com](https://srapsware.com)
 
 ## 🙏 Acknowledgments
 
-- Thanks to all contributors
-- Built with [Next.js](https://nextjs.org/)
-- Styled with [Bootstrap](https://getbootstrap.com/)
+- [Next.js](https://nextjs.org/) - The React Framework
+- [Bootstrap](https://getbootstrap.com/) - UI Framework
+- [Font Awesome](https://fontawesome.com/) - Icons
+- All our amazing contributors
+
+---
+
+<div align="center">
+  Made with ❤️ by <a href="https://github.com/ProgrammerNomad">Shiv Singh</a>
+</div>
