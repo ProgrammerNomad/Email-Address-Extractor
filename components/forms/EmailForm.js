@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
+import debounce from 'lodash/debounce';
 import InputOutput from './InputOutput';
 import OutputOptions from './OutputOptions';
 import FilterOptions from './FilterOptions';
@@ -51,101 +52,108 @@ export default function EmailForm() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState('');
 
-  const handleInputChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    
-    if (name === 'groupby') {
-      const numberValue = parseInt(value);
-      if (value && (isNaN(numberValue) || numberValue < 1)) {
-        setError('Group size must be a positive number');
-        return;
-      }
-    }
+  // Process emails in chunks to prevent UI freezing
+  const processEmailsInChunks = (text, chunkSize = 1000) => {
+    return new Promise((resolve) => {
+      const emailPattern = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
+      const chunks = text.match(new RegExp(`.{1,${chunkSize}}`, 'g')) || [];
+      const allEmails = new Set();
 
-    setFormData(prev => ({
-      ...prev,
-      [name]: type === 'checkbox' ? checked : value
-    }));
-    setError('');
+      let currentChunk = 0;
+
+      const processChunk = () => {
+        if (currentChunk >= chunks.length) {
+          resolve(Array.from(allEmails));
+          return;
+        }
+
+        const chunk = chunks[currentChunk];
+        const matches = chunk.match(emailPattern) || [];
+        matches.forEach(email => allEmails.add(email));
+
+        currentChunk++;
+        setTimeout(processChunk, 0); // Allow UI to update between chunks
+      };
+
+      processChunk();
+    });
   };
 
-  const handleExtract = () => {
-    setIsProcessing(true);
-    setError('');
-    
+  const handleExtract = async () => {
     try {
+      setIsProcessing(true);
+      setError('');
+
       const text = formData.input;
       if (!text) {
         setFormData(prev => ({ ...prev, output: '', count: '' }));
         return;
       }
 
-      // Email regex pattern
-      const emailPattern = /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/gi;
-      
-      // Extract emails
-      let matches = text.match(emailPattern) || [];
-
-      // Remove duplicates
-      matches = [...new Set(matches)];
+      // Process emails in chunks
+      const emails = await processEmailsInChunks(text);
 
       // Apply filters
+      let filteredEmails = emails;
+
       if (formData.RemoveNumeric) {
-        matches = matches.filter(email => !/\d/.test(email.split('@')[1]));
+        filteredEmails = filteredEmails.filter(email => !/\d/.test(email.split('@')[1]));
       }
 
       if (formData.UseKeyword && formData.RemoveKeywords) {
         const keywords = formData.RemoveKeywords.toLowerCase().split(',');
-        matches = matches.filter(email => 
+        filteredEmails = filteredEmails.filter(email => 
           !keywords.some(keyword => email.toLowerCase().includes(keyword.trim()))
         );
       }
 
-      if (formData.string) {
-        const searchString = formData.string.toLowerCase();
-        matches = formData.filter_type === '1' 
-          ? matches.filter(email => email.toLowerCase().includes(searchString))
-          : matches.filter(email => !email.toLowerCase().includes(searchString));
-      }
-
       // Sort if needed
       if (formData.sort) {
-        matches.sort();
+        filteredEmails.sort();
       }
 
       // Convert to lowercase if needed
       if (formData.lowcase) {
-        matches = matches.map(email => email.toLowerCase());
+        filteredEmails = filteredEmails.map(email => email.toLowerCase());
       }
 
-      // Group if specified
-      let finalOutput;
-      if (formData.groupby && !isNaN(formData.groupby)) {
-        const size = parseInt(formData.groupby);
-        const groups = matches.reduce((acc, email, i) => {
-          if (i % size === 0) acc.push([]);
-          acc[Math.floor(i / size)].push(email);
-          return acc;
-        }, []);
-        finalOutput = groups.map(group => group.join('\n')).join('\n');
-      } else {
-        // Use selected separator or default to new line
-        const separator = formData.sep === 'other' ? formData.othersep : 
-                         formData.sep === 'new' ? '\n' : 
-                         formData.sep;
-        finalOutput = matches.join(separator);
-      }
+      // Format output
+      const separator = formData.sep === 'other' ? formData.othersep 
+        : formData.sep === 'new' ? '\n' 
+        : formData.sep;
+
+      const finalOutput = filteredEmails.join(separator);
 
       setFormData(prev => ({
         ...prev,
         output: finalOutput,
-        count: matches.length.toString()
+        count: filteredEmails.length.toString()
       }));
     } catch (error) {
       setError('Error processing emails: ' + error.message);
     } finally {
       setIsProcessing(false);
     }
+  };
+
+  // Debounce input changes for better performance
+  const debouncedHandleInputChange = useCallback(
+    debounce((name, value) => {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }, 300),
+    []
+  );
+
+  const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    const finalValue = type === 'checkbox' ? checked : value;
+    
+    if (name === 'input' && value.length > 1000000) {
+      setError('Input text is too large. Please reduce the size.');
+      return;
+    }
+
+    debouncedHandleInputChange(name, finalValue);
   };
 
   const getDomainStats = (emails) => {
@@ -288,6 +296,20 @@ export default function EmailForm() {
 
   return (
     <form onSubmit={(e) => e.preventDefault()}>
+      {error && (
+        <div className="alert alert-danger alert-dismissible fade show" role="alert">
+          {error}
+          <button type="button" className="btn-close" onClick={() => setError('')}></button>
+        </div>
+      )}
+      {isProcessing && (
+        <div className="alert alert-info" role="alert">
+          <div className="spinner-border spinner-border-sm me-2" role="status">
+            <span className="visually-hidden">Processing...</span>
+          </div>
+          Processing large text... Please wait
+        </div>
+      )}
       <InputOutput 
         formData={formData}
         handleInputChange={handleInputChange}
@@ -296,6 +318,7 @@ export default function EmailForm() {
         handleCopy={handleCopy}
         handleExport={handleExport}
         copyMessage={copyMessage}
+        isProcessing={isProcessing}
       />
       <OutputOptions formData={formData} handleInputChange={handleInputChange} />
       <FilterOptions formData={formData} handleInputChange={handleInputChange} />
