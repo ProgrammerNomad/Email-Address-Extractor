@@ -1,41 +1,94 @@
-# Email Address Extractor
+# Email Address Extractor 📧
 
-This is a Next.js application for extracting email addresses from any given text. It provides various options for filtering and formatting the extracted emails.
+A powerful Next.js application that extracts email addresses from any text with advanced filtering and formatting options.
 
-## Features
+## ✨ Features
 
-* Extract email addresses from any text.
-* No duplicate emails in the output.
-* Counts the number of extracted emails.
-* Options to customize the separator between emails (comma, pipe, colon, new line, or custom).
-* Group emails by a specified number.
-* Sort emails alphabetically.
-* Filter emails by domain or a specific string.
-* Remove emails containing specific keywords.
-* Option to extract web addresses (URLs) instead of email addresses.
+- **Extract & Filter**
+  - Extract email addresses from any text
+  - Remove duplicate emails automatically
+  - Filter by domains or specific strings
+  - Remove emails containing specific keywords
+  - Sort emails alphabetically
 
-## How to Use
+- **Format & Export**
+  - Customize separators (comma, pipe, colon, newline)
+  - Group emails by specified number
+  - Export as TXT, CSV, or JSON
+  - Copy all emails with one click
 
-1. Clone the repository: `git clone https://github.com/ProgrammerNomad/Email-Address-Extractor.git`
-2. Install dependencies: `npm install`
-3. Run the development server: `npm run dev`
-4. Open your browser and go to `http://localhost:3000`
+- **Advanced Options**
+  - Extract web URLs instead of emails
+  - Remove numeric domains
+  - Convert to lowercase
+  - Domain statistics
+  - Keyword-based filtering
 
-## Technologies Used
+## 🚀 Quick Start
 
-* Next.js
-* React
-* Bootstrap
-* JavaScript
+```bash
+# Clone the repository
+git clone https://github.com/ProgrammerNomad/Email-Address-Extractor.git
 
-## Contributing
+# Navigate to project directory
+cd Email-Address-Extractor
 
-Please read [CONTRIBUTING.md](https://github.com/ProgrammerNomad/Email-Address-Extractor/blob/main/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+# Install dependencies
+npm install
 
-## Issues
+# Start development server
+npm run dev
+```
 
-If you find any bugs or have feature requests, please create an issue at [https://github.com/ProgrammerNomad/Email-Address-Extractor/issues](https://github.com/ProgrammerNomad/Email-Address-Extractor/issues)
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## License
+## 🛠️ Technologies
+
+- **Frontend Framework**: Next.js 14
+- **UI Library**: React 18
+- **Styling**: Bootstrap 5
+- **Icons**: Font Awesome
+- **Performance**: Lodash
+- **Code Quality**: ESLint & Prettier
+
+## 💻 Development
+
+```bash
+# Run tests
+npm test
+
+# Format code
+npm run format
+
+# Lint code
+npm run lint
+
+# Build for production
+npm run build
+```
+
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details on:
+- Code of Conduct
+- Pull Request Process
+- Development Guidelines
+
+## 🐛 Issues
+
+Found a bug or have a feature request? [Create an issue](https://github.com/ProgrammerNomad/Email-Address-Extractor/issues)
+
+## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👨‍💻 Author
+
+**Shiv Singh**
+- GitHub: [@ProgrammerNomad](https://github.com/ProgrammerNomad)
+
+## 🙏 Acknowledgments
+
+- Thanks to all contributors
+- Built with [Next.js](https://nextjs.org/)
+- Styled with [Bootstrap](https://getbootstrap.com/)
