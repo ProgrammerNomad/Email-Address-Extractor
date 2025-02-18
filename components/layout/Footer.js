@@ -45,7 +45,7 @@ export default function Footer() {
             <ul className="list-unstyled">
               <li className="mb-2">
                 <a 
-                  href="https://github.com/srapsware/email-address-extractor"
+                  href="https://github.com/ProgrammerNomad/Email-Address-Extractor"
                   className="text-muted text-decoration-none"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -56,7 +56,7 @@ export default function Footer() {
               </li>
               <li className="mb-2">
                 <a 
-                  href="https://github.com/srapsware/email-address-extractor/issues"
+                  href="https://github.com/ProgrammerNomad/Email-Address-Extractor/issues"
                   className="text-muted text-decoration-none"
                   target="_blank"
                   rel="noopener noreferrer"

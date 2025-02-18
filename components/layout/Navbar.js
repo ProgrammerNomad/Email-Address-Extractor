@@ -32,7 +32,7 @@ export default function Navbar() {
             <li className="nav-item">
               <a 
                 className="nav-link" 
-                href="https://github.com/srapsware/email-address-extractor/wiki"
+                href="https://github.com/ProgrammerNomad/Email-Address-Extractor/wiki/About"
               >
                 About
               </a>
@@ -40,7 +40,7 @@ export default function Navbar() {
             <li className="nav-item">
               <a 
                 className="nav-link" 
-                href="https://github.com/srapsware/email-address-extractor/issues/new"
+                href="https://github.com/ProgrammerNomad/Email-Address-Extractor/issues/new"
               >
                 Contact Support
               </a>
