@@ -118,6 +118,8 @@ main {
 .feature-icon {
   font-size: 4rem;
   color: var(--bs-secondary);
+  padding: 2rem;
+  transition: all 0.3s ease;
 }
 
 .section-divider {
@@ -490,4 +492,207 @@ main {
   .badge {
     font-size: 0.8rem;
   }
+}
+
+/* Feature icon colors */
+.feature-icon .fa-fingerprint {
+  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.feature-icon:hover .fa-fingerprint {
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Feature icon colors and effects */
+.feature-icon {
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+/* No duplicates - Purple gradient */
+.feature-icon .fa-fingerprint {
+  background: linear-gradient(45deg, #6366f1, #8b5cf6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Counts of emails - Blue */
+.feature-icon .fa-list-ol {
+  color: #0d6efd;
+}
+
+/* Different separator - Orange */
+.feature-icon .fa-arrows-alt {
+  color: #fd7e14;
+}
+
+/* Generates in groups - Green */
+.feature-icon .fa-object-group {
+  color: #198754;
+}
+
+/* Sort emails - Teal */
+.feature-icon .fa-sort-alpha-asc {
+  color: #20c997;
+}
+
+/* Advanced Filtering - Indigo */
+.feature-icon .fa-filter {
+  color: #6610f2;
+}
+
+/* Keyword Filtering - Red */
+.feature-icon .fa-shield-alt {
+  color: #dc3545;
+}
+
+/* Case Conversion - Cyan */
+.feature-icon .fa-text-height {
+  color: #0dcaf0;
+}
+
+/* Hover effects */
+.feature-icon:hover {
+  transform: scale(1.05);
+}
+
+.feature-icon:hover i {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* Dark mode adjustments */
+@media (prefers-color-scheme: dark) {
+  .feature-icon i {
+    opacity: 0.9;
+  }
+  
+  .feature-icon:hover i {
+    opacity: 1;
+    filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.1));
+  }
+}
+
+/* Quick Tips section icons */
+.fa-lightbulb.text-warning {
+  color: #ffc107 !important;
+}
+
+.fa-filter.text-primary {
+  color: #0d6efd !important;
+}
+
+.fa-file-export.text-success {
+  color: #198754 !important;
+}
+
+/* Output Options Styling */
+.output-options .card-header {
+  border-bottom: 2px solid rgba(0,0,0,.05);
+}
+
+.output-options .form-label {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.output-options .form-check {
+  margin-bottom: 0.5rem;
+}
+
+.output-options .form-check-input:checked {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.output-options .form-select:focus,
+.output-options .form-control:focus {
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.25rem rgba(13,110,253,.25);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .output-options .card-header {
+    background-color: rgba(255,255,255,.05) !important;
+    border-bottom-color: rgba(255,255,255,.1);
+  }
+
+  .output-options .form-label {
+    color: #e9ecef;
+  }
+
+  .output-options .text-muted {
+    color: rgba(255,255,255,.6) !important;
+  }
+}
+
+/* Filter Options Styling */
+.filter-options .card-header {
+  border-bottom: 2px solid rgba(0,0,0,.05);
+}
+
+.filter-options .form-label {
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.filter-options .keyword-filter-section {
+  background-color: rgba(0,0,0,.02) !important;
+  border: 1px solid rgba(0,0,0,.05);
+}
+
+.filter-options .form-switch {
+  padding-left: 2.5rem;
+}
+
+.filter-options .form-switch .form-check-input {
+  width: 2rem;
+  margin-left: -2.5rem;
+  cursor: pointer;
+}
+
+.filter-options .form-switch .form-check-input:checked {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+.filter-options .keyword-input-area {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.filter-options textarea {
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .filter-options .card-header {
+    background-color: rgba(255,255,255,.05) !important;
+    border-bottom-color: rgba(255,255,255,.1);
+  }
+
+  .filter-options .form-label {
+    color: #e9ecef;
+  }
+
+  .filter-options .keyword-filter-section {
+    background-color: rgba(255,255,255,.03) !important;
+    border-color: rgba(255,255,255,.1);
+  }
+
+  .filter-options .text-muted {
+    color: rgba(255,255,255,.6) !important;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
 }

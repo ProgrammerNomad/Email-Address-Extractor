@@ -5,7 +5,7 @@ export default function Features() {
     {
       title: 'No duplicates',
       description: 'This tool extracts email addresses <strong>without repeating</strong> the same email, <strong>100% no duplication</strong>',
-      icon: 'fa-files-o',
+      icon: 'fa-fingerprint', // Changed from fa-files-o to fa-fingerprint for uniqueness
       variant: 'a',
       isReverse: false
     },
