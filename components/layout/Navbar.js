@@ -3,16 +3,18 @@ import Link from 'next/link';
 
 export default function Navbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
       <div className="container">
-        <Link href="/" className="navbar-brand">
-          <Image 
-            src="/img/icon.png" 
-            alt="Email Extractor" 
-            width={32} 
-            height={32} 
-            className="d-inline-block align-text-top"
+        <Link href="/" className="navbar-brand d-flex align-items-center">
+          <Image
+            src="/img/icon.png"
+            alt="Email Extractor"
+            width={32}
+            height={32}
+            priority={true}
+            className="me-2"
           />
+          <span>Email Extractor</span>
         </Link>
 
         <button 
