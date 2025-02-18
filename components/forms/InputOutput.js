@@ -1,7 +1,10 @@
+import ResultActions from './ResultActions';
+
 export default function InputOutput({ formData, handleInputChange, handleExtract, handleReset, handleCopy, handleExport, copyMessage }) {
   return (
     <div className="form-group">
       <div className="textarea-container">
+        {/* Input textarea */}
         <div className="textarea-wrapper">
           <textarea 
             className="form-control mb-3" 
@@ -11,23 +14,27 @@ export default function InputOutput({ formData, handleInputChange, handleExtract
             value={formData.input}
             onChange={handleInputChange}
           />
-          <div className="d-flex gap-2 mb-3">
+          <div className="d-flex gap-2">
             <button 
               type="button" 
               className="btn btn-primary flex-grow-1"
               onClick={handleExtract}
             >
+              <i className="fas fa-magic me-2"></i>
               Extract
             </button>
             <button 
               type="button" 
-              className="btn btn-danger flex-grow-1"
+              className="btn btn-outline-danger flex-grow-1"
               onClick={handleReset}
             >
+              <i className="fas fa-undo me-2"></i>
               Reset
             </button>
           </div>
         </div>
+
+        {/* Output textarea */}
         <div className="textarea-wrapper">
           <textarea 
             className="form-control mb-3" 
@@ -37,65 +44,12 @@ export default function InputOutput({ formData, handleInputChange, handleExtract
             value={formData.output}
             readOnly
           />
-          <div className="d-flex gap-2 mb-3">
-            <div className="flex-grow-1">
-              <label className="form-label">Number of addresses detected:</label>
-              <input 
-                type="text" 
-                className="form-control" 
-                value={formData.count} 
-                readOnly 
-              />
-            </div>
-            <div className="d-flex flex-column justify-content-end gap-2">
-              <button 
-                type="button" 
-                className="btn btn-success"
-                onClick={handleCopy}
-              >
-                Copy Mails
-              </button>
-              <div className="dropdown">
-                <button 
-                  className="btn btn-primary dropdown-toggle" 
-                  type="button" 
-                  data-bs-toggle="dropdown" 
-                  aria-expanded="false"
-                >
-                  Export As
-                </button>
-                <ul className="dropdown-menu">
-                  <li>
-                    <button 
-                      className="dropdown-item" 
-                      onClick={() => handleExport('txt')}
-                    >
-                      Text File (.txt)
-                    </button>
-                  </li>
-                  <li>
-                    <button 
-                      className="dropdown-item" 
-                      onClick={() => handleExport('csv')}
-                    >
-                      CSV File (.csv)
-                    </button>
-                  </li>
-                  <li>
-                    <button 
-                      className="dropdown-item" 
-                      onClick={() => handleExport('json')}
-                    >
-                      JSON File (.json)
-                    </button>
-                  </li>
-                </ul>
-              </div>
-              {copyMessage && (
-                <small className="text-success mt-1">{copyMessage}</small>
-              )}
-            </div>
-          </div>
+          <ResultActions 
+            count={parseInt(formData.count) || 0}
+            onCopy={handleCopy}
+            onExport={handleExport}
+            copyMessage={copyMessage}
+          />
         </div>
       </div>
     </div>

@@ -67,35 +67,47 @@ export default function Home() {
             <section className="py-4 mb-5">
               <div className="row g-4">
                 <div className="col-md-4">
-                  <div className="d-flex align-items-start">
-                    <i className="fas fa-lightbulb text-warning fs-4 me-3"></i>
-                    <div>
-                      <h5 className="mb-2">Pro Tip</h5>
-                      <p className="text-muted small mb-0">
-                        Use the 'Sort Alphabetically' option to organize emails better.
-                      </p>
+                  <div className="d-flex align-items-center">
+                    <div className="tip-icon">
+                      <i className="fas fa-lightbulb text-warning fs-4"></i>
+                    </div>
+                    <div className="ms-3">
+                      <div className="d-flex align-items-center">
+                        <h5 className="mb-0">Pro Tip:</h5>
+                        <span className="text-muted small ms-2">
+                          Sort emails alphabetically for better organization
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-4">
-                  <div className="d-flex align-items-start">
-                    <i className="fas fa-filter text-primary fs-4 me-3"></i>
-                    <div>
-                      <h5 className="mb-2">Advanced Filtering</h5>
-                      <p className="text-muted small mb-0">
-                        Remove unwanted domains using keyword filters.
-                      </p>
+                  <div className="d-flex align-items-center">
+                    <div className="tip-icon">
+                      <i className="fas fa-filter text-primary fs-4"></i>
+                    </div>
+                    <div className="ms-3">
+                      <div className="d-flex align-items-center">
+                        <h5 className="mb-0">Quick Filter:</h5>
+                        <span className="text-muted small ms-2">
+                          Remove unwanted domains instantly
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div className="col-md-4">
-                  <div className="d-flex align-items-start">
-                    <i className="fas fa-file-export text-success fs-4 me-3"></i>
-                    <div>
-                      <h5 className="mb-2">Easy Export</h5>
-                      <p className="text-muted small mb-0">
-                        Export results in TXT, CSV, or JSON formats.
-                      </p>
+                  <div className="d-flex align-items-center">
+                    <div className="tip-icon">
+                      <i className="fas fa-file-export text-success fs-4"></i>
+                    </div>
+                    <div className="ms-3">
+                      <div className="d-flex align-items-center">
+                        <h5 className="mb-0">Export:</h5>
+                        <span className="text-muted small ms-2">
+                          Save as TXT, CSV, or JSON
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>

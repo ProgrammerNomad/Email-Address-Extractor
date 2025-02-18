@@ -696,3 +696,170 @@ main {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* Result Actions Styling */
+.result-actions {
+  border: 1px solid rgba(0,0,0,.1);
+  transition: all 0.3s ease;
+}
+
+.result-actions:hover {
+  box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,.075);
+}
+
+.email-count .display-6 {
+  font-size: 2.5rem;
+  line-height: 1.2;
+}
+
+.result-actions .btn {
+  min-width: 120px;
+  position: relative;
+  overflow: hidden;
+}
+
+.result-actions .btn:active {
+  transform: translateY(1px);
+}
+
+.result-actions .dropdown-item {
+  padding: 0.5rem 1rem;
+  transition: all 0.2s ease;
+}
+
+.result-actions .dropdown-item:hover {
+  background-color: rgba(13,110,253,.1);
+}
+
+.copy-message {
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .result-actions {
+    background-color: rgba(255,255,255,.05) !important;
+    border-color: rgba(255,255,255,.1);
+  }
+  
+  .result-actions .text-muted {
+    color: rgba(255,255,255,.6) !important;
+  }
+  
+  .result-actions .dropdown-menu {
+    background-color: #2d2d2d;
+    border-color: rgba(255,255,255,.1);
+  }
+  
+  .result-actions .dropdown-item {
+    color: #fff;
+  }
+  
+  .result-actions .dropdown-item:hover {
+    background-color: rgba(255,255,255,.1);
+  }
+}
+
+/* Quick Tips styling */
+.tip-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background-color: rgba(0,0,0,.05);
+}
+
+.tip-icon i {
+  opacity: 0.9;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .tip-icon {
+    background-color: rgba(255,255,255,.05);
+  }
+}
+
+@media (max-width: 768px) {
+  .d-flex.align-items-center {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Result Actions Button Styling */
+.result-actions .btn {
+  min-height: 50px;
+  font-size: 1rem;
+}
+
+.result-actions .btn:not(:disabled):hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.result-actions .dropdown-menu {
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.result-actions .dropdown-item {
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.result-actions .dropdown-item:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+.email-count .display-6 {
+  font-size: 2.5rem;
+  line-height: 1;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .result-actions .dropdown-menu {
+    background-color: #2d2d2d;
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  .result-actions .dropdown-item {
+    color: #fff;
+  }
+
+  .result-actions .dropdown-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+@media (min-width: 576px) {
+  .w-sm-auto {
+    width: auto !important;
+  }
+}
+
+.result-actions .dropdown-menu {
+  min-width: 200px;
+}
+
+.result-actions .dropdown-item {
+  padding: 0.75rem 1rem;
+}
+
+.result-actions .btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
