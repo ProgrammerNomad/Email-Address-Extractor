@@ -1,0 +1,10 @@
+{
+  "entryPoints": ["./components", "./pages", "./utils"],
+  "out": "docs",
+  "name": "Email Address Extractor",
+  "exclude": ["**/node_modules/**"],
+  "theme": "default",
+  "includeVersion": true,
+  "hideGenerator": true,
+  "readme": "README.md"
+}

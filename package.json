@@ -45,7 +45,7 @@
     "cypress:headless": "cypress run",
     "validate": "npm-run-all --parallel type-check lint test build",
     "security": "npm audit && snyk test",
-    "docs": "typedoc --out docs src"
+    "docs": "typedoc --out docs components pages utils --entryPointStrategy expand"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.x",
