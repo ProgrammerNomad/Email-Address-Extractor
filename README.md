@@ -1,12 +1,23 @@
 # Email Address Extractor 📧
 
-A powerful Next.js application that extracts email addresses from any text with advanced filtering and formatting options. Perfect for data mining, contact list building, and email validation.
+A powerful, fast, and easy-to-use email address extraction tool built with Next.js and React. Extract email addresses from any text instantly with advanced filtering options.
+
+![Email Extractor Preview](public/img/social-preview.png)
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
 [![Next.js](https://img.shields.io/badge/Next.js-14-black)](https://nextjs.org/)
 [![Bootstrap](https://img.shields.io/badge/Bootstrap-5.3-purple)](https://getbootstrap.com/)
 
 ## ✨ Features
+
+- 🚀 **Instant Extraction**: Extract thousands of emails in seconds
+- 🌓 **Dark Mode**: Comfortable viewing in any lighting condition
+- 📤 **Multiple Export Formats**: Save results as TXT, CSV, or JSON
+- 🔍 **Smart Filtering**: Remove unwanted and spam emails automatically
+- 💾 **File Upload**: Import text directly from files
+- 🔄 **Auto-Sort**: Organize emails alphabetically
+- 🎯 **Duplicate Prevention**: Automatically removes duplicate emails
+- 📱 **Responsive Design**: Works on desktop and mobile devices
 
 ### 📥 Extract & Filter
 - Extract email addresses from any text instantly
