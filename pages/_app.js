@@ -18,17 +18,19 @@ export default function MyApp({ Component, pageProps }) {
 
   if (isLoading) {
     return (
-      <div className="min-vh-100 d-flex align-items-center justify-content-center">
+      <div className="min-vh-100 d-flex align-items-center justify-content-center dark:bg-gray-900">
         <LoadingSpinner size="lg" message="Loading Email Address Extractor..." />
       </div>
     );
   }
 
   return (
-    <ThemeProvider attribute="data-bs-theme">
-      <ErrorBoundary>
-        <Component {...pageProps} />
-      </ErrorBoundary>
+    <ThemeProvider attribute="class" defaultTheme="system">
+      <div className="theme-wrapper">
+        <ErrorBoundary>
+          <Component {...pageProps} />
+        </ErrorBoundary>
+      </div>
     </ThemeProvider>
   );
 }

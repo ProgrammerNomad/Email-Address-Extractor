@@ -1,13 +1,14 @@
 export const validateEmail = (email) => {
-  // Basic email format validation
-  const basicFormat = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
-  // RFC 5322 standard email validation
-  const rfc5322 = /^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9]))\.){3}(?:(2(5[0-5]|[0-4][0-9])|1[0-9][0-9]|[1-9]?[0-9])|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])$/i;
-  
+  const checks = {
+    format: /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+    length: email.length <= 254,
+    domain: email.split('@')[1]?.includes('.'),
+    specialChars: !/[(),:;<>[\]\\]/.test(email)
+  };
+
   return {
-    isValid: rfc5322.test(email),
-    isBasicValid: basicFormat.test(email),
-    hasMxRecord: true // Could be checked with DNS lookup in backend
+    isValid: Object.values(checks).every(Boolean),
+    score: Object.values(checks).filter(Boolean).length,
+    checks
   };
 };

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTheme } from 'next-themes';
 
 export default function InputOutput({ 
   formData, 
@@ -10,6 +11,8 @@ export default function InputOutput({
   isProcessing 
 }) {
   const [copyMessage, setCopyMessage] = useState('');
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
   
   const handleFileUpload = async (e) => {
     const file = e.target.files[0];
@@ -79,7 +82,7 @@ export default function InputOutput({
   return (
     <>
       {formData.UseKeyword && formData.RemoveKeywords && (
-        <div className="alert alert-info mb-3">
+        <div className={`alert ${isDark ? 'bg-dark border-info text-light' : 'alert-info'} mb-3`}>
           <i className="fas fa-filter me-2"></i>
           Filtering emails containing: {formData.RemoveKeywords.split(',').map(k => k.trim()).join(', ')}
         </div>
@@ -87,20 +90,20 @@ export default function InputOutput({
       
       {/* Input Section */}
       <div className="mb-4">
-        <label htmlFor="inputText" className="form-label">
+        <label htmlFor="inputText" className={`form-label ${isDark ? 'text-light' : ''}`}>
           Paste your text containing email addresses
         </label>
         <textarea
           id="inputText"
           name="input"
-          className="form-control mb-3"
+          className={`form-control mb-3 ${isDark ? 'bg-dark text-light border-secondary' : ''}`}
           rows="8"
           value={formData.input}
           onChange={handleInputChange}
           placeholder="Paste your text here or use the upload button below to load content from a file..."
           aria-describedby="emailHelp"
         />
-        <div id="emailHelp" className="form-text mb-3">
+        <div id="emailHelp" className={`form-text mb-3 ${isDark ? 'text-light opacity-75' : ''}`}>
           <i className="fas fa-info-circle me-1"></i>
           The tool will automatically extract all email addresses from your text.
         </div>
@@ -108,7 +111,7 @@ export default function InputOutput({
         <div className="d-flex flex-wrap gap-2 align-items-center">
           <button
             type="button"
-            className="btn btn-primary"
+            className={`btn ${isDark ? 'btn-outline-light' : 'btn-primary'}`}
             onClick={handleExtract}
             disabled={!formData.input.trim() || isProcessing}
           >
@@ -116,7 +119,7 @@ export default function InputOutput({
             Extract Email Addresses
           </button>
 
-          <label className="btn btn-outline-secondary mb-0" role="button">
+          <label className={`btn ${isDark ? 'btn-outline-secondary text-light' : 'btn-outline-secondary'} mb-0`} role="button">
             <i className="fas fa-file-upload me-2"></i>
             Upload File (.txt, .csv)
             <input
@@ -134,20 +137,20 @@ export default function InputOutput({
       {formData.output && (
         <div className="mb-4">
           <div className="d-flex justify-content-between align-items-center mb-2">
-            <label htmlFor="outputText" className="form-label mb-0">
+            <label htmlFor="outputText" className={`form-label mb-0 ${isDark ? 'text-light' : ''}`}>
               Extracted Email Addresses ({formData.count})
             </label>
             <div className="btn-group">
               <button
                 type="button"
-                className="btn btn-sm btn-outline-success"
+                className={`btn btn-sm ${isDark ? 'btn-outline-light' : 'btn-outline-success'}`}
                 onClick={handleCopyWithFeedback}
               >
                 <i className="fas fa-copy me-2"></i>
                 Copy All
               </button>
               <button 
-                className="btn btn-sm btn-outline-primary dropdown-toggle"
+                className={`btn btn-sm ${isDark ? 'btn-outline-light' : 'btn-outline-primary'} dropdown-toggle`}
                 type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -155,7 +158,7 @@ export default function InputOutput({
                 <i className="fas fa-download me-2"></i>
                 Export
               </button>
-              <ul className="dropdown-menu">
+              <ul className={`dropdown-menu ${isDark ? 'dropdown-menu-dark' : ''}`}>
                 <li>
                   <button 
                     className="dropdown-item" 
@@ -186,7 +189,7 @@ export default function InputOutput({
               </ul>
               <button
                 type="button"
-                className="btn btn-sm btn-outline-danger"
+                className={`btn btn-sm ${isDark ? 'btn-outline-danger' : 'btn-outline-danger'}`}
                 onClick={handleReset}
               >
                 <i className="fas fa-trash me-2"></i>
@@ -195,14 +198,14 @@ export default function InputOutput({
             </div>
           </div>
           {copyMessage && (
-            <div className="text-success small mb-2">
+            <div className={`small mb-2 ${isDark ? 'text-success opacity-75' : 'text-success'}`}>
               <i className="fas fa-check me-1"></i>
               {copyMessage}
             </div>
           )}
           <textarea
             id="outputText"
-            className="form-control"
+            className={`form-control ${isDark ? 'bg-dark text-light border-secondary' : ''}`}
             rows="8"
             value={formData.output}
             readOnly

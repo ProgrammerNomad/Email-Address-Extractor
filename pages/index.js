@@ -5,6 +5,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorBoundary from '../components/common/ErrorBoundary';
+import { useTheme } from 'next-themes';
 
 // Update dynamic imports
 const Features = dynamic(() => import('../components/features/Features'), {
@@ -17,8 +18,31 @@ const EmailForm = dynamic(() => import('../components/forms/EmailForm'), {
   ssr: false
 });
 
+const quickTips = [
+  {
+    icon: 'fa-sort-alpha-down',
+    title: 'Pro Tip',
+    description: 'Sort emails alphabetically for better organization',
+    color: 'text-primary'
+  },
+  {
+    icon: 'fa-filter',
+    title: 'Quick Filter',
+    description: 'Remove unwanted domains instantly',
+    color: 'text-success'
+  },
+  {
+    icon: 'fa-file-export',
+    title: 'Export Options',
+    description: 'Save your results as TXT, CSV, or JSON',
+    color: 'text-info'
+  }
+];
+
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   // Add error handling for bootstrap load
   useEffect(() => {
@@ -38,18 +62,18 @@ export default function Home() {
 
   if (isLoading) {
     return (
-      <div className="min-vh-100 d-flex align-items-center justify-content-center">
+      <div className={`min-vh-100 d-flex align-items-center justify-content-center ${isDark ? 'bg-dark' : 'bg-light'}`}>
         <LoadingSpinner 
           size="lg" 
           message="Loading Email Address Extractor..." 
-          variant="primary"
+          variant={isDark ? 'light' : 'primary'}
         />
       </div>
     );
   }
 
   return (
-    <>
+    <div className={`theme-wrapper ${isDark ? 'dark-theme' : ''}`}>
       <Head>
         <html lang="en" /> {/* Add language attribute */}
         <title>Email Address Extractor - Free Online Tool</title>
@@ -66,7 +90,7 @@ export default function Home() {
         <link rel="canonical" href="https://your-domain.com" />
       </Head>
 
-      <div className="d-flex flex-column min-vh-100">
+      <div className={`d-flex flex-column min-vh-100 ${isDark ? 'bg-dark' : 'bg-light'}`}>
         <a href="#main-content" className="skip-link visually-hidden-focusable">
           Skip to main content
         </a>
@@ -75,38 +99,42 @@ export default function Home() {
           <Navbar />
         </ErrorBoundary>
         
-        <main id="main-content" className="flex-grow-1" role="main">
+        <main 
+          id="main-content" 
+          className={`flex-grow-1 py-5 ${isDark ? 'bg-dark text-light' : 'bg-light'}`} 
+          role="main"
+        >
           <div className="container">
             {/* Hero Section */}
-            <section className="py-5" aria-label="Email extraction tool">
+            <section className="hero-section mb-5" aria-label="Email extraction tool">
               <div className="row justify-content-center">
                 <div className="col-12 col-lg-10">
                   <div className="text-center mb-5">
-                    <h1 id="main-heading" className="display-4 fw-bold mb-3">
+                    <h1 className="display-4 fw-bold mb-3">
                       Extract Email Addresses Instantly
                     </h1>
-                    <p className="lead text-secondary mb-4" role="doc-subtitle">
+                    <p className={`lead mb-4 ${isDark ? 'text-light opacity-75' : 'text-secondary'}`}>
                       Simply paste your text and let our tool find all email addresses. 
                       Perfect for contact list building and data extraction.
                     </p>
-                    <div className="d-flex justify-content-center gap-3 mb-4" role="list">
-                      <span className="badge bg-success px-3 py-2" role="listitem">
-                        <i className="fas fa-check me-2" aria-hidden="true"></i>
+                    <div className="d-flex justify-content-center gap-3 mb-4">
+                      <span className="badge bg-success px-3 py-2">
+                        <i className="fas fa-check me-2"></i>
                         <span>Free to Use</span>
                       </span>
-                      <span className="badge bg-primary px-3 py-2" role="listitem">
-                        <i className="fas fa-bolt me-2" aria-hidden="true"></i>
+                      <span className="badge bg-primary px-3 py-2">
+                        <i className="fas fa-bolt me-2"></i>
                         <span>Instant Results</span>
                       </span>
-                      <span className="badge bg-info px-3 py-2" role="listitem">
-                        <i className="fas fa-lock me-2" aria-hidden="true"></i>
+                      <span className="badge bg-info px-3 py-2">
+                        <i className="fas fa-lock me-2"></i>
                         <span>100% Private</span>
                       </span>
                     </div>
                   </div>
                   
-                  <div className="card shadow-sm border-0">
-                    <div className="card-body p-4" role="form" aria-label="Email extraction form">
+                  <div className={`card shadow-lg ${isDark ? 'bg-dark border-secondary' : 'border-0'}`}>
+                    <div className="card-body p-4">
                       <ErrorBoundary>
                         <EmailForm />
                       </ErrorBoundary>
@@ -116,60 +144,29 @@ export default function Home() {
               </div>
             </section>
 
-            <ErrorBoundary>
-              <section className="quick-tips py-4 mb-5" aria-labelledby="tips-heading">
-                <h2 id="tips-heading" className="visually-hidden">Quick Tips</h2>
-                <div className="row g-4" role="list">
-                  <div className="col-md-4" role="listitem">
-                    <div className="tip-card h-100 p-3 rounded">
-                      <div className="d-flex">
-                        <div className="tip-icon rounded-circle" aria-hidden="true">
-                          <i className="fas fa-lightbulb text-warning"></i>
+            <section className="quick-tips py-4 mb-5">
+              <div className="container">
+                <div className="row g-4">
+                  {quickTips.map((tip, index) => (
+                    <div key={index} className="col-md-4">
+                      <div className={`tip-card h-100 p-4 rounded-3 ${
+                        isDark ? 'bg-dark border border-secondary' : 'bg-light border'
+                      }`}>
+                        <div className="d-flex align-items-center mb-3">
+                          <div className={`tip-icon rounded-circle ${tip.color}`}>
+                            <i className={`fas ${tip.icon} fa-lg`}></i>
+                          </div>
+                          <h3 className="h5 mb-0 ms-3">{tip.title}</h3>
                         </div>
-                        <div className="tip-content ms-3">
-                          <h3 className="tip-title h5 mb-2">Pro Tip</h3>
-                          <p className="tip-text mb-0">
-                            Sort emails alphabetically for better organization
-                          </p>
-                        </div>
+                        <p className={`mb-0 ${isDark ? 'text-light opacity-75' : 'text-secondary'}`}>
+                          {tip.description}
+                        </p>
                       </div>
                     </div>
-                  </div>
-
-                  <div className="col-md-4" role="listitem">
-                    <div className="tip-card h-100 p-3 rounded">
-                      <div className="d-flex">
-                        <div className="tip-icon rounded-circle" aria-hidden="true">
-                          <i className="fas fa-filter text-primary"></i>
-                        </div>
-                        <div className="tip-content ms-3">
-                          <h3 className="tip-title h5 mb-2">Quick Filter</h3>
-                          <p className="tip-text mb-0">
-                            Remove unwanted domains instantly
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="col-md-4" role="listitem">
-                    <div className="tip-card h-100 p-3 rounded">
-                      <div className="d-flex">
-                        <div className="tip-icon rounded-circle" aria-hidden="true">
-                          <i className="fas fa-file-export text-success"></i>
-                        </div>
-                        <div className="tip-content ms-3">
-                          <h3 className="tip-title h5 mb-2">Export Options</h3>
-                          <p className="tip-text mb-0">
-                            Save your results as TXT, CSV, or JSON
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
-              </section>
-            </ErrorBoundary>
+              </div>
+            </section>
 
             <ErrorBoundary>
               <Features />
@@ -181,6 +178,6 @@ export default function Home() {
           <Footer />
         </ErrorBoundary>
       </div>
-    </>
+    </div>
   );
 }

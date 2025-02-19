@@ -4,6 +4,7 @@ import { chunk } from 'lodash';
 import InputOutput from './InputOutput';
 import OutputOptions from './OutputOptions';
 import FilterOptions from './FilterOptions';
+import { useTheme } from 'next-themes';
 
 const customFilters = {
   removeTemp: (email) => !email.includes('temp') && !email.includes('disposable'),
@@ -25,6 +26,9 @@ const EXPORT_FORMATS = {
 };
 
 export default function EmailForm() {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
   const [formData, setFormData] = useState({
     input: '',
     output: '',
@@ -349,12 +353,12 @@ export default function EmailForm() {
       )}
 
       {isProcessing && (
-        <div className="alert alert-info mb-3">
+        <div className={`alert ${isDark ? 'alert-info bg-dark border-info' : 'alert-info'} mb-3`}>
           <div className="d-flex align-items-center">
             <div className="spinner-border spinner-border-sm me-2" role="status">
               <span className="visually-hidden">Processing...</span>
             </div>
-            <div>Processing emails... {progress}%</div>
+            <div className={isDark ? 'text-light' : ''}>Processing emails... {progress}%</div>
           </div>
           <div className="progress mt-2" style={{ height: '3px' }}>
             <div 
@@ -377,15 +381,20 @@ export default function EmailForm() {
         onCopy={handleCopy}
         handleExport={handleExport}
         isProcessing={isProcessing}
+        isDark={isDark}
       />
 
-      <div className="form-text mt-3 mb-3 p-2 bg-light rounded">
-        <i className="fas fa-keyboard me-2"></i>
-        Pro tip: &nbsp; Use <kbd className="ms-1 me-1">Ctrl</kbd> + <kbd>Enter</kbd> to extract emails quickly
+      <div className={`alert ${isDark ? 'bg-dark border-secondary' : 'alert-light border-light'} mt-3 mb-3`}>
+        <div className="d-flex align-items-center">
+          <i className="fas fa-keyboard text-primary me-2"></i>
+          <span className={isDark ? 'text-light' : ''}>
+            Pro tip: Press <kbd className={isDark ? 'bg-secondary border-secondary text-light' : ''}>Ctrl</kbd> + <kbd className={isDark ? 'bg-secondary border-secondary text-light' : ''}>Enter</kbd> to extract emails quickly
+          </span>
+        </div>
       </div>
 
-      <OutputOptions formData={formData} handleInputChange={handleInputChange} />
-      <FilterOptions formData={formData} handleInputChange={handleInputChange} />
+      <OutputOptions formData={formData} handleInputChange={handleInputChange} isDark={isDark} />
+      <FilterOptions formData={formData} handleInputChange={handleInputChange} isDark={isDark} />
     </form>
   );
 }

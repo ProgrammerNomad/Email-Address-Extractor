@@ -406,6 +406,8 @@ main {
 /* Footer styles */
 .footer {
   background-color: var(--bs-body-bg);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
 }
 
 .footer a:hover {
@@ -429,6 +431,7 @@ main {
 @media (prefers-color-scheme: dark) {
   .footer {
     background-color: var(--background);
+    border-top-color: rgba(255, 255, 255, 0.1);
   }
   
   .footer h5 {
@@ -1319,12 +1322,16 @@ main {
 
 /* Keyboard shortcut styles */
 kbd {
+  display: inline-block;
   padding: 0.2rem 0.4rem;
   font-size: 0.875em;
+  font-weight: 600;
+  line-height: 1;
   color: #fff;
   background-color: #212529;
-  border-radius: 0.2rem;
-  box-shadow: inset 0 -0.1rem 0 rgba(0, 0, 0, 0.25);
+  border-radius: 0.25rem;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+  margin: 0 0.2rem;
 }
 
 .form-text.bg-light {
@@ -1384,4 +1391,445 @@ kbd {
 
 [data-bs-theme="dark"] .bg-light {
   background-color: #343a40 !important;
+}
+
+.alert-light {
+  background-color: rgba(var(--bs-light-rgb), 0.5);
+}
+
+/* Dark mode support */
+[data-bs-theme="dark"] kbd {
+  background-color: #495057;
+  color: #fff;
+}
+
+[data-bs-theme="dark"] .alert-light {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Dark theme styles */
+.dark-theme {
+  background-color: #121212;
+  color: #e5e5e5;
+}
+
+.dark-theme .card {
+  background-color: #1e1e1e;
+  border-color: #2d2d2d;
+}
+
+.dark-theme .form-control {
+  background-color: #2d2d2d;
+  border-color: #404040;
+  color: #e5e5e5;
+}
+
+.dark-theme .form-control:focus {
+  background-color: #2d2d2d;
+  border-color: #0d6efd;
+  color: #e5e5e5;
+}
+
+.dark-theme .tip-card {
+  background-color: #1e1e1e;
+}
+
+.dark-theme .text-secondary {
+  color: #9e9e9e !important;
+}
+
+.dark-theme .bg-light {
+  background-color: #1e1e1e !important;
+}
+
+.dark-theme .border-light {
+  border-color: #2d2d2d !important;
+}
+
+/* Loading spinner dark mode */
+.dark-theme .spinner-border {
+  border-color: #e5e5e5;
+  border-right-color: transparent;
+}
+
+/* Card hover effects in dark mode */
+.dark-theme .card:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+}
+
+/* Tip icon background in dark mode */
+.dark-theme .tip-icon {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Dark mode improvements */
+[data-theme='dark'] {
+  --bs-body-color: #e5e5e5;
+  --bs-body-bg: #121212;
+  --bs-primary: #3b82f6;
+  --bs-secondary: #6b7280;
+  --bs-success: #10b981;
+  --bs-info: #3b82f6;
+  --bs-warning: #f59e0b;
+  --bs-danger: #ef4444;
+  --bs-light: #1f2937;
+  --bs-dark: #111827;
+  --bs-border-color: #374151;
+}
+
+/* Improve text readability in dark mode */
+[data-theme='dark'] .text-muted {
+  color: #9ca3af !important;
+}
+
+[data-theme='dark'] .form-label {
+  color: #e5e5e5;
+}
+
+[data-theme='dark'] .form-text {
+  color: #9ca3af;
+}
+
+[data-theme='dark'] .form-control {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #e5e5e5;
+}
+
+[data-theme='dark'] .form-control:focus {
+  background-color: #1f2937;
+  border-color: var(--bs-primary);
+  box-shadow: 0 0 0 0.25rem rgba(59, 130, 246, 0.25);
+}
+
+/* Card styles in dark mode */
+[data-theme='dark'] .card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+[data-theme='dark'] .card-header {
+  background-color: #111827;
+  border-bottom-color: #374151;
+}
+
+/* Button styles in dark mode */
+[data-theme='dark'] .btn-outline-secondary {
+  color: #9ca3af;
+  border-color: #4b5563;
+}
+
+[data-theme='dark'] .btn-outline-secondary:hover {
+  color: #e5e5e5;
+  background-color: #4b5563;
+}
+
+/* Alert styles in dark mode */
+[data-theme='dark'] .alert-light {
+  background-color: #1f2937;
+  border-color: #374151;
+  color: #e5e5e5;
+}
+
+/* Dropdown styles in dark mode */
+[data-theme='dark'] .dropdown-menu {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+[data-theme='dark'] .dropdown-item {
+  color: #e5e5e5;
+}
+
+[data-theme='dark'] .dropdown-item:hover {
+  background-color: #374151;
+  color: #e5e5e5;
+}
+
+/* Small text and helper text */
+[data-theme='dark'] small {
+  color: #9ca3af !important;
+}
+
+/* Checkbox and radio styles */
+[data-theme='dark'] .form-check-input {
+  background-color: #1f2937;
+  border-color: #4b5563;
+}
+
+[data-theme='dark'] .form-check-input:checked {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+}
+
+/* Placeholder text */
+[data-theme='dark'] ::placeholder {
+  color: #6b7280 !important;
+  opacity: 1;
+}
+
+/* Keyboard shortcut styling */
+[data-theme='dark'] kbd {
+  background-color: #374151;
+  color: #e5e5e5;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Feature card styles */
+.feature-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Feature icon colors */
+.text-purple {
+  color: #6610f2;
+}
+
+/* Dark mode support */
+[data-theme='dark'] .feature-card {
+  background-color: #1f2937;
+  border-color: #374151;
+}
+
+[data-theme='dark'] .feature-card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .feature-icon {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .feature-card {
+    padding: 1.5rem !important;
+  }
+  
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .display-6 {
+    font-size: calc(1.2rem + 1.5vw);
+  }
+}
+
+/* Navbar styles */
+.navbar {
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+[data-theme='dark'] .navbar {
+  background-color: rgba(33, 37, 41, 0.95) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Hover opacity */
+.hover-opacity-100:hover {
+  opacity: 1 !important;
+}
+
+/* Dark theme improvements */
+.dark-theme {
+  --bs-body-bg: #121212;
+  --bs-body-color: #e5e5e5;
+  --bs-border-color: #2d2d2d;
+}
+
+.dark-theme .card {
+  --bs-card-bg: #1e1e1e;
+  --bs-card-border-color: #2d2d2d;
+}
+
+.dark-theme .form-control {
+  background-color: #2d2d2d;
+  border-color: #404040;
+  color: #e5e5e5;
+}
+
+.dark-theme .form-control:focus {
+  background-color: #2d2d2d;
+  border-color: var(--bs-primary);
+  color: #e5e5e5;
+}
+
+.dark-theme .tip-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dark-theme .tip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark-theme .text-muted {
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.dark-theme .bg-light {
+  background-color: #1e1e1e !important;
+}
+
+/* Smooth transitions */
+.theme-wrapper {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Loading state dark mode */
+[data-theme='dark'] .spinner-border {
+  border-color: #e5e5e5;
+  border-right-color: transparent;
+}
+
+/* Quick Tips styling */
+.tip-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.tip-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.tip-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark mode support */
+[data-theme='dark'] .tip-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme='dark'] .tip-card:hover {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+[data-theme='dark'] .tip-icon {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .tip-card {
+    padding: 1.5rem !important;
+  }
+  
+  .tip-icon {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* Dark mode form styles */
+[data-theme='dark'] .form-control {
+  background-color: #1e1e1e;
+  border-color: #404040;
+  color: #e5e5e5;
+}
+
+[data-theme='dark'] .form-control:focus {
+  background-color: #2d2d2d;
+  border-color: #0d6efd;
+  color: #e5e5e5;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+[data-theme='dark'] .form-control::placeholder {
+  color: #6c757d;
+}
+
+[data-theme='dark'] .btn-outline-light:hover {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+[data-theme='dark'] .alert {
+  background-color: #1e1e1e;
+  border-color: #404040;
+}
+
+[data-theme='dark'] kbd {
+  background-color: #2d2d2d;
+  border: 1px solid #404040;
+  box-shadow: inset 0 -1px 0 #404040;
+  color: #e5e5e5;
+}
+
+[data-theme='dark'] .progress {
+  background-color: #2d2d2d;
+}
+
+[data-theme='dark'] .form-check-input {
+  background-color: #2d2d2d;
+  border-color: #404040;
+}
+
+[data-theme='dark'] .form-check-input:checked {
+  background-color: #0d6efd;
+  border-color: #0d6efd;
+}
+
+/* Dark mode input/output styles */
+[data-theme='dark'] .form-control {
+  background-color: #1e1e1e;
+  border-color: #404040;
+  color: #e5e5e5;
+}
+
+[data-theme='dark'] .form-control:focus {
+  background-color: #2d2d2d;
+  border-color: #0d6efd;
+  color: #e5e5e5;
+  box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+[data-theme='dark'] .btn-outline-light:hover {
+  color: #212529;
+}
+
+[data-theme='dark'] .dropdown-menu-dark {
+  background-color: #2d2d2d;
+  border-color: #404040;
+}
+
+[data-theme='dark'] .dropdown-menu-dark .dropdown-item:hover {
+  background-color: #404040;
+}
+
+[data-theme='dark'] .form-control::placeholder {
+  color: #6c757d;
+  opacity: 0.75;
+}
+
+/* Alert modifications for dark mode */
+[data-theme='dark'] .alert {
+  background-color: rgba(33, 37, 41, 0.95);
 }
