@@ -1,12 +1,11 @@
 import { useState } from 'react';
-import ResultActions from './ResultActions';
 
 export default function InputOutput({ 
   formData, 
   handleInputChange, 
   handleExtract,
   handleReset,
-  handleCopy,
+  onCopy, // Renamed from handleCopy to avoid conflict
   handleExport,
   isProcessing 
 }) {
@@ -64,6 +63,17 @@ export default function InputOutput({
     link.click();
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
+  };
+
+  // Internal copy handler with feedback
+  const handleCopyWithFeedback = async () => {
+    try {
+      await onCopy(); // Use the prop function
+      setCopyMessage('Copied to clipboard!');
+      setTimeout(() => setCopyMessage(''), 2000);
+    } catch (error) {
+      console.error('Copy failed:', error);
+    }
   };
 
   return (
@@ -131,51 +141,49 @@ export default function InputOutput({
               <button
                 type="button"
                 className="btn btn-sm btn-outline-success"
-                onClick={handleCopy}
+                onClick={handleCopyWithFeedback}
               >
                 <i className="fas fa-copy me-2"></i>
                 Copy All
               </button>
-              <div className="btn-group">
-                <button 
-                  type="button" 
-                  className="btn btn-sm btn-outline-primary dropdown-toggle"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  <i className="fas fa-download me-2"></i>
-                  Export
-                </button>
-                <ul className="dropdown-menu">
-                  <li>
-                    <button 
-                      className="dropdown-item" 
-                      onClick={() => handleExportFormat('txt')}
-                    >
-                      <i className="fas fa-file-alt me-2"></i>
-                      Text File (.txt)
-                    </button>
-                  </li>
-                  <li>
-                    <button 
-                      className="dropdown-item" 
-                      onClick={() => handleExportFormat('csv')}
-                    >
-                      <i className="fas fa-file-csv me-2"></i>
-                      CSV File (.csv)
-                    </button>
-                  </li>
-                  <li>
-                    <button 
-                      className="dropdown-item" 
-                      onClick={() => handleExportFormat('json')}
-                    >
-                      <i className="fas fa-file-code me-2"></i>
-                      JSON File (.json)
-                    </button>
-                  </li>
-                </ul>
-              </div>
+              <button 
+                className="btn btn-sm btn-outline-primary dropdown-toggle"
+                type="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i className="fas fa-download me-2"></i>
+                Export
+              </button>
+              <ul className="dropdown-menu">
+                <li>
+                  <button 
+                    className="dropdown-item" 
+                    onClick={() => handleExportFormat('txt')}
+                  >
+                    <i className="fas fa-file-alt me-2"></i>
+                    Text File (.txt)
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    className="dropdown-item" 
+                    onClick={() => handleExportFormat('csv')}
+                  >
+                    <i className="fas fa-file-csv me-2"></i>
+                    CSV File (.csv)
+                  </button>
+                </li>
+                <li>
+                  <button 
+                    className="dropdown-item" 
+                    onClick={() => handleExportFormat('json')}
+                  >
+                    <i className="fas fa-file-code me-2"></i>
+                    JSON File (.json)
+                  </button>
+                </li>
+              </ul>
               <button
                 type="button"
                 className="btn btn-sm btn-outline-danger"
@@ -186,6 +194,12 @@ export default function InputOutput({
               </button>
             </div>
           </div>
+          {copyMessage && (
+            <div className="text-success small mb-2">
+              <i className="fas fa-check me-1"></i>
+              {copyMessage}
+            </div>
+          )}
           <textarea
             id="outputText"
             className="form-control"
@@ -194,12 +208,6 @@ export default function InputOutput({
             readOnly
             aria-label="Extracted email addresses"
           />
-          {copyMessage && (
-            <div className="text-success mt-2 small">
-              <i className="fas fa-check me-1"></i>
-              {copyMessage}
-            </div>
-          )}
         </div>
       )}
     </>

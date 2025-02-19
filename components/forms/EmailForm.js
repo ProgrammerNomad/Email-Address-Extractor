@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import debounce from 'lodash/debounce';
 import { chunk } from 'lodash';
 import InputOutput from './InputOutput';
@@ -202,13 +202,14 @@ export default function EmailForm() {
     setCopyMessage('');
   };
 
-  const handleCopy = () => {
-    if (formData.output.length < 1) {
-      setCopyMessage("No mails to copy");
-      return;
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(formData.output);
+      return true;
+    } catch (error) {
+      console.error('Copy failed:', error);
+      return false;
     }
-    navigator.clipboard.writeText(formData.output);
-    setCopyMessage("The addresses have been copied to clipboard");
   };
 
   const handleExport = (format) => {
@@ -327,6 +328,17 @@ export default function EmailForm() {
     }
   };
 
+  useEffect(() => {
+    const handleKeyPress = (e) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+        handleExtract();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyPress);
+    return () => document.removeEventListener('keydown', handleKeyPress);
+  }, []);
+
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       {error && (
@@ -362,10 +374,15 @@ export default function EmailForm() {
         handleInputChange={handleInputChange}
         handleExtract={handleExtract}
         handleReset={handleReset}
-        handleCopy={handleCopy}
+        onCopy={handleCopy}
         handleExport={handleExport}
         isProcessing={isProcessing}
       />
+
+      <div className="form-text mt-3 mb-3 p-2 bg-light rounded">
+        <i className="fas fa-keyboard me-2"></i>
+        Pro tip: &nbsp; Use <kbd className="ms-1 me-1">Ctrl</kbd> + <kbd>Enter</kbd> to extract emails quickly
+      </div>
 
       <OutputOptions formData={formData} handleInputChange={handleInputChange} />
       <FilterOptions formData={formData} handleInputChange={handleInputChange} />

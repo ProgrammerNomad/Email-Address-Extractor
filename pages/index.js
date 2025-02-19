@@ -6,37 +6,30 @@ import Footer from '../components/layout/Footer';
 import LoadingSpinner from '../components/common/LoadingSpinner';
 import ErrorBoundary from '../components/common/ErrorBoundary';
 
-// Dynamic imports with better loading states
+// Update dynamic imports
 const Features = dynamic(() => import('../components/features/Features'), {
-  loading: () => (
-    <div className="py-5 fade-in">
-      <LoadingSpinner 
-        message="Loading features..." 
-        size="lg"
-        className="my-4"
-      />
-    </div>
-  )
+  loading: () => <LoadingSpinner message="Loading features..." size="lg" />,
+  ssr: false // Disable server-side rendering for better performance
 });
 
 const EmailForm = dynamic(() => import('../components/forms/EmailForm'), {
-  loading: () => (
-    <div className="card-body p-4 fade-in">
-      <LoadingSpinner 
-        message="Initializing email extractor..." 
-        variant="primary"
-      />
-    </div>
-  )
+  loading: () => <LoadingSpinner message="Initializing..." variant="primary" />,
+  ssr: false
 });
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
+  // Add error handling for bootstrap load
   useEffect(() => {
     const loadApp = async () => {
-      if (typeof window !== 'undefined') {
-        await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+      try {
+        if (typeof window !== 'undefined') {
+          await import('bootstrap/dist/js/bootstrap.bundle.min.js');
+        }
+      } catch (error) {
+        console.error('Failed to load Bootstrap:', error);
+      } finally {
         setIsLoading(false);
       }
     };
