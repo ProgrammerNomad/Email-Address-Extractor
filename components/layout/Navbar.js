@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import ThemeToggle from '../common/ThemeToggle';
 
 export default function Navbar() {
   return (
@@ -49,7 +50,8 @@ export default function Navbar() {
             </li>
           </ul>
         </div>
-        <div className="navbar-nav ms-auto">
+        <div className="navbar-nav ms-2 d-flex flex-row gap-2">
+          <ThemeToggle />
           <a 
             className="nav-link" 
             href="https://github.com/ProgrammerNomad/Email-Address-Extractor"

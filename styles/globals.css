@@ -1342,3 +1342,46 @@ kbd {
     background-color: #495057;
   }
 }
+
+/* Theme toggle styles */
+.theme-toggle {
+  padding: 0.5rem;
+  transition: color 0.2s ease-in-out;
+}
+
+[data-bs-theme="dark"] {
+  color-scheme: dark;
+  --bs-body-color: #dee2e6;
+  --bs-body-bg: #212529;
+  --bs-secondary-color: #6c757d;
+}
+
+[data-bs-theme="dark"] .navbar {
+  background-color: #343a40 !important;
+}
+
+[data-bs-theme="dark"] .card {
+  background-color: #343a40;
+  border-color: #495057;
+}
+
+[data-bs-theme="dark"] .form-control {
+  background-color: #2b3035;
+  border-color: #495057;
+  color: #dee2e6;
+}
+
+[data-bs-theme="dark"] .form-control:focus {
+  background-color: #2b3035;
+  border-color: #0d6efd;
+  color: #dee2e6;
+}
+
+[data-bs-theme="dark"] .btn-outline-secondary {
+  border-color: #495057;
+  color: #dee2e6;
+}
+
+[data-bs-theme="dark"] .bg-light {
+  background-color: #343a40 !important;
+}
