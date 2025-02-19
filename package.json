@@ -41,14 +41,12 @@
     "prebuild": "npm run type-check"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.5.1",
-    "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.2",
-    "lodash": "^4.17.21",
-    "lru-cache": "^10.1.0",
-    "next": "14.1.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@fortawesome/fontawesome-free": "^6.x",
+    "bootstrap": "^5.x",
+    "lodash": "^4.x",
+    "next": "^14.x",
+    "react": "^18.x",
+    "react-dom": "^18.x"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.4.2",

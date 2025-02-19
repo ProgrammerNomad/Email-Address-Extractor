@@ -28,7 +28,7 @@ export default function EmailForm() {
   const [formData, setFormData] = useState({
     input: '',
     output: '',
-    count: '',
+    count: '0',
     sep: 'new',
     othersep: '',
     sort: false,
@@ -38,8 +38,8 @@ export default function EmailForm() {
     address_type: 'email',
     filter_type: '1',
     string: '',
-    UseKeyword: false,
-    RemoveKeywords: 'whois,domain,dns,proxy,priv,regi,webmaster,protc,obsc,anonymiz,@contac,host,gandi,support,qq.com,naver.com,hxmail.com,pro.net,xell.hk,corp.com',
+    UseKeyword: true, // Enable by default
+    RemoveKeywords: 'whois,domain,dns,proxy,priv,regi,webmaster,protc,obsc,anonymiz,@contac,host,gandi,support,qq.com,naver.com,hxmail.com,pro.net,xell.hk,corp.com', // Default keywords
     showDomainStats: false,
     excludeDomains: [],
     minDomainFrequency: 1,
@@ -55,7 +55,6 @@ export default function EmailForm() {
   const [error, setError] = useState('');
   const abortController = useRef(null);
 
-  // Update the processEmailsInChunks function
   const processEmailsInChunks = async (text) => {
     const chunkSize = 100000; // Increased chunk size for better performance
     const totalLength = text.length;
@@ -100,14 +99,11 @@ export default function EmailForm() {
       // Apply filters
       let filteredEmails = emails;
 
-      if (formData.RemoveNumeric) {
-        filteredEmails = filteredEmails.filter(email => !/\d/.test(email.split('@')[1]));
-      }
-
-      if (formData.UseKeyword && formData.RemoveKeywords) {
-        const keywords = formData.RemoveKeywords.toLowerCase().split(',');
+      // Apply keyword filtering if enabled
+      if (formData.UseKeyword && formData.RemoveKeywords.trim()) {
+        const keywords = formData.RemoveKeywords.toLowerCase().split(',').map(k => k.trim());
         filteredEmails = filteredEmails.filter(email => 
-          !keywords.some(keyword => email.toLowerCase().includes(keyword.trim()))
+          !keywords.some(keyword => email.toLowerCase().includes(keyword))
         );
       }
 
@@ -221,7 +217,7 @@ export default function EmailForm() {
       return;
     }
   
-    const emails = formData.output.split('\n').filter(Boolean);
+    const emails = formData.output.split(/[\n,]/).filter(Boolean);
     if (!emails.length) {
       setError('No emails to export');
       return;
@@ -229,13 +225,23 @@ export default function EmailForm() {
   
     try {
       const { mime, ext } = EXPORT_FORMATS[format];
-      const content = format === 'json' 
-        ? JSON.stringify(emails, null, 2)
-        : format === 'csv' 
-          ? emails.join(',')
-          : emails.join('\n');
+      let content = '';
+      
+      switch (format) {
+        case 'json':
+          content = JSON.stringify({ emails }, null, 2);
+          break;
+        case 'csv':
+          content = 'Email Address\n' + emails.join('\n');
+          break;
+        default:
+          content = emails.join('\n');
+      }
   
-      downloadFile(content, `emails${ext}`, mime);
+      const timestamp = new Date().toISOString().slice(0, 10);
+      const filename = `email-addresses-${timestamp}${ext}`;
+      
+      downloadFile(content, filename, mime);
     } catch (error) {
       setError('Error exporting file: ' + error.message);
     }
@@ -252,8 +258,10 @@ export default function EmailForm() {
       document.body.appendChild(link);
       link.click();
     } finally {
-      document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
+      if (document.body.contains(link)) {
+        document.body.removeChild(link);
+      }
     }
   };
 
@@ -304,6 +312,21 @@ export default function EmailForm() {
     }
   };
 
+  const handleFileUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    try {
+      const text = await file.text();
+      setFormData(prev => ({
+        ...prev,
+        input: text
+      }));
+    } catch (error) {
+      setError('Error reading file. Please make sure it\'s a valid text or CSV file.');
+    }
+  };
+
   return (
     <form onSubmit={(e) => e.preventDefault()}>
       {error && (
@@ -312,22 +335,14 @@ export default function EmailForm() {
           <button type="button" className="btn-close" onClick={() => setError('')}></button>
         </div>
       )}
+
       {isProcessing && (
-        <div className="alert alert-info alert-dismissible fade show" role="alert">
+        <div className="alert alert-info mb-3">
           <div className="d-flex align-items-center">
             <div className="spinner-border spinner-border-sm me-2" role="status">
               <span className="visually-hidden">Processing...</span>
             </div>
-            <div className="flex-grow-1">
-              Processing large text... {progress}%
-            </div>
-            <button 
-              type="button" 
-              className="btn btn-sm btn-outline-info ms-2"
-              onClick={handleCancel}
-            >
-              Cancel
-            </button>
+            <div>Processing emails... {progress}%</div>
           </div>
           <div className="progress mt-2" style={{ height: '3px' }}>
             <div 
@@ -337,20 +352,21 @@ export default function EmailForm() {
               aria-valuenow={progress} 
               aria-valuemin="0" 
               aria-valuemax="100"
-            ></div>
+            />
           </div>
         </div>
       )}
-      <InputOutput 
+
+      <InputOutput
         formData={formData}
         handleInputChange={handleInputChange}
         handleExtract={handleExtract}
         handleReset={handleReset}
         handleCopy={handleCopy}
         handleExport={handleExport}
-        copyMessage={copyMessage}
         isProcessing={isProcessing}
       />
+
       <OutputOptions formData={formData} handleInputChange={handleInputChange} />
       <FilterOptions formData={formData} handleInputChange={handleInputChange} />
     </form>
