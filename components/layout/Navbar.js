@@ -11,7 +11,7 @@ export default function Navbar() {
             alt="Email Extractor"
             width={32}
             height={32}
-            priority={true} // Use priority instead of fetchPriority
+            priority={true} // Changed from fetchPriority
             className="me-2"
           />
           <span>Email Extractor</span>
